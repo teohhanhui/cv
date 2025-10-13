@@ -4,266 +4,242 @@
 #show: catppuccin.with(flavor)
 #let palette = flavor.colors
 
+#let text-size = 11pt
 #let text-font = "CommitMono"
 #let code-font = "CommitMono"
 
 #set page(paper: "a4")
-#set text(font: text-font)
-#show heading: it => block(above: 1em, below: 1em, sticky: true)[
-  #{
-    set text(fill: palette.overlay0.rgb)
+#set text(size: text-size, font: text-font)
+#show heading: it => block(above: 1.1em, below: 0.5em, sticky: true)[#{
+  let text-fill = text.fill
+  let marker-fill = palette.overlay0.rgb
+  if it.level == 1 {
+    text-fill = palette.red.rgb
+  }
+  if it.level == 2 {
+    text-fill = palette.green.rgb
+  }
+  set text(size: text-size)
+  {
     let level = 0
     while level < it.level {
-      [\#]
+      text(fill: marker-fill)[\#]
       level = level + 1
     }
   }
-  #{
-    let fill = text.fill
-    if it.level == 1 {
-      fill = palette.red.rgb
-    }
-    if it.level == 2 {
-      fill = palette.green.rgb
-    }
-    set text(fill: fill)
-    it.body
-  }
-]
-#set par(spacing: 1.5em)
-#set list(marker: [
-  #set text(fill: palette.subtext0.rgb)
-  --
-])
+  set text(fill: text-fill)
+  [ #it.body]
+}]
+#set par(spacing: 0.65em)
+#set list(marker: text(fill: palette.subtext0.rgb)[--])
 #show link: underline
 #show raw: set text(font: code-font)
 
-#let subtitle(fill: palette.subtext0.rgb, content) = {
-  set text(fill: fill)
+#let skills(content) = {
+  let text-size = 0.9em
+  let separator-fill = palette.sapphire.rgb
+  set text(size: text-size)
+  show "|": set text(fill: separator-fill)
   content
 }
-#let job-title(title) = subtitle(fill: palette.blue.rgb, title)
-#let institution(title) = subtitle(fill: palette.blue.rgb, title)
-#let time-period(title) = {
-  show "(": set text(fill: palette.subtext0.rgb)
-  show ")": set text(fill: palette.subtext0.rgb)
-  show sym.dash.en: set text(fill: palette.subtext0.rgb)
-  subtitle(fill: palette.yellow.rgb, title)
+#let project(content) = box(content)
+#let timeframe(content) = {
+  let text-size = 0.9em
+  let text-fill = palette.yellow.rgb
+  let symbol-fill = palette.subtext0.rgb
+  set text(size: text-size, fill: text-fill)
+  show "(": set text(fill: symbol-fill)
+  show ")": set text(fill: symbol-fill)
+  show sym.dash.en: set text(fill: symbol-fill)
+  content
 }
-
-#let tech(tech) = {
-  set text(fill: palette.subtext0.rgb)
-  show "|": set text(fill: palette.sapphire.rgb)
-  tech
+#let wip(content) = {
+  let text-fill = palette.subtext0.rgb
+  set text(fill: text-fill)
+  content
+}
+#let experience(content) = box(content)
+#let job-title(content) = {
+  let text-size = 0.9em
+  let text-fill = palette.blue.rgb
+  set text(size: text-size, fill: text-fill)
+  content
+}
+#let education(content) = box(content)
+#let institution(content) = {
+  let text-size = 0.9em
+  let text-fill = palette.blue.rgb
+  set text(size: text-size, fill: text-fill)
+  content
 }
 
 = Summary
 
 I am a software developer with more than 10 years of experience, with a focus on
-backend web development.
-
-I have more than 5 years of experience in the #link(
+backend web development. I have more than 5 years of experience in the #link(
   "https://rust-lang.org/",
-)[Rust] programming language.
-
-I take pride in writing elegant and maintainable code.
-
-I love and prefer working with and contributing to open source software
+)[Rust] programming language. I take pride in writing elegant and maintainable
+code. I love and prefer working with and contributing to open source software
 projects.
+
+= Skills
+
+#skills[
+  | Rust | Tokio | axum | Diesel | PostgreSQL | PostGIS | Redis | Varnish | \
+  | OpenID Connect | OpenAPI | JSON-LD | Hydra | Automerge | CRDT | FRP | \
+  | Docker | Docker Compose | GitHub Actions | GitLab CI | \
+]
 
 = Projects
 
 == #link("https://github.com/teohhanhui/cyclers")[cyclers]
 
-#time-period[(July 2025--Present)]
+#project[
+  #timeframe[(July 2025--Present)]
 
-#subtitle[[WIP]]
-
-A functional and reactive framework.
-
-Inspired by #link("https://cycle.js.org/")[Cycle.js].
-
-#tech[
-  | `Rust` | `async` | `FRP` | `GitHub Actions` |
+  #wip[[WIP]] A functional and reactive framework. Inspired by #link(
+    "https://cycle.js.org/",
+  )[Cycle.js].
 ]
 
 == #link("https://github.com/teohhanhui/hexciv")[Hexciv]
 
-#time-period[(September 2024--June 2025)]
+#project[
+  #timeframe[(September 2024--June 2025)]
 
-#subtitle[[WIP]]
-
-Civ VI inspired game, written in Rust using the Bevy game engine.
-
-#tech[
-  | `Rust` | `Bevy` | `tile map` | `procedural generation` |
+  #wip[[WIP]] Civ VI inspired game, written in Rust using the Bevy game engine.
 ]
 
 == #link("https://github.com/hykilpikonna/hyfetch")[HyFetch]
 
-#time-period[(June 2024--October 2024)]
+#project[
+  #timeframe[(June 2024--October 2024)]
 
-#link("https://github.com/hykilpikonna/hyfetch/pull/317")[Ported] the entire
-project from Python to Rust.
-
-Released since #link(
-  "https://github.com/hykilpikonna/hyfetch/releases/tag/2.0.1",
-)[hyfetch 2.0.1].
-
-#tech[
-  | `Rust` | `CLI` |
+  #link("https://github.com/hykilpikonna/hyfetch/pull/317")[Ported] the entire
+  project from Python to Rust. Released since #link(
+    "https://github.com/hykilpikonna/hyfetch/releases/tag/2.0.1",
+  )[hyfetch 2.0.1].
 ]
 
 == #link("https://github.com/AsahiLinux/muvm")[muvm]
 
-#time-period[(April 2024--Present)]
+#project[
+  #timeframe[(April 2024--Present)]
 
-#link("https://github.com/AsahiLinux/muvm/pull/1")[Ported] the entire project
-from C to Rust.
-
-I am a co-maintainer of the project.
-
-#tech[
-  | `Rust` | `CLI` |
+  #link("https://github.com/AsahiLinux/muvm/pull/1")[Ported] the entire project
+  from C to Rust. I am a co-maintainer of the project.
 ]
 
 = Experience
 
 == CariBid
 
-#job-title[Software Engineer (Contractor)]
+#experience[
+  #job-title[Software Engineer (Contractor)]
 
-#time-period[(November 2024--Present)]
+  #timeframe[(November 2024--Present)]
 
-- Revamped and hardened authentication system.
-  - Integrated #link(
+  - Revamped and hardened authentication system. Integrated #link(
       "https://openid.net/specs/openid-connect-core-1_0.html",
-    )[OpenID Connect] for authentication with Amazon Cognito.
-  - Implemented #link(
+    )[OpenID Connect] for authentication with Amazon Cognito. Implemented #link(
       "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#section-6.2",
     )[Token-Mediating Backend] pattern and other security best practices.
-- Implemented bid processing for online auctions.
-  - Implemented validation for placement of bids from authorized users for both
-    public and private auctions.
-  - Integrated real-time push of bid updates using #link(
+  - Implemented bid processing for online auctions. Implemented validation for
+    placement of bids from authorized users for both public and private
+    auctions. Integrated real-time push of bid updates using #link(
       "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events",
     )[server-sent events].
-- Implemented background processing for completed auctions.
-  - Implemented scheduling of background jobs for performing post-auction close
-    tasks.
-
-#tech[
-  | `Rust` | `Tokio` | `axum` | \
-  | `Diesel` | `PostgreSQL` | \
-  | `OpenID Connect` | \
-  | `Docker` | `Docker Compose` | `GitHub Actions` |
+  - Implemented background processing for completed auctions. Implemented
+    scheduling of background jobs for performing post-auction close tasks.
 ]
 
 == Bowtie
 
-#job-title[Software Engineer (Contractor)]
+#experience[
+  #job-title[Software Engineer (Contractor)]
 
-#time-period[(August 2022--December 2023)]
+  #timeframe[(August 2022--December 2023)]
 
-- Integrated OpenID Connect for authentication.
-- Refactored project to enforce architectural design with cleaner separation and
-  higher maintainability.
-- Migrated away from in-house legacy persistence layer to higher-level
-  integration library by Automerge upstream.
-
-#tech[
-  | `Rust` | `Tokio` | `axum` | \
-  | `Automerge` | `CRDT` | \
-  | `OpenID Connect` | \
-  | `GitLab CI` |
+  - Integrated OpenID Connect for authentication.
+  - Refactored project to improve separation and maintainability.
+  - Migrated away from in-house legacy persistence layer to higher-level
+    integration library by Automerge upstream.
 ]
 
 == Les-Tilleuls.coop
 
-#job-title[Lead Developer]
+#experience[
+  #job-title[Lead Developer]
 
-#time-period[(February 2018--July 2020)]
+  #timeframe[(February 2018--July 2020)]
 
-- Maintained #link("https://api-platform.com/")[API Platform] framework as a
-  Core Team member.
-- Planned and executed upgrade process of LVMH projects to newer Symfony and API
-  Platform versions.
-- Developed new features and delivered quality improvements for Corum Asset
-  Management project.
-
-#tech[
-  | `PHP` | `Symfony` | `API Platform` | \
-  | `Hydra` | `JSON-LD` | `OpenAPI` | \
-  | `Doctrine` | \
-  | `Varnish` | \
-  | `Docker` | `Docker Compose` | `GitLab CI` |
+  - Maintained #link("https://api-platform.com/")[API Platform] framework as a
+    Core Team member.
+  - Planned and executed upgrade process of LVMH projects to newer Symfony and
+    API Platform versions.
+  - Developed new features and delivered quality improvements for Corum Asset
+    Management project.
 ]
 
 == Tripviss
 
-#job-title[Software Engineer]
+#experience[
+  #job-title[Software Engineer]
 
-#time-period[(July 2015--August 2017)]
+  #timeframe[(July 2015--August 2017)]
 
-- Designed and built backend web API for travel e-commerce platform startup.
-  - Maintained database of travel destinations and POIs, queryable by geometry.
-  - Implemented tagging of travel destinations and POIs in tour and activity
-    itineraries.
-  - Implemented full-text search for tour and activity products.
-- Contributed to API Platform development, and thereafter made a Core Team
-  member.
-
-#tech[
-  | `PHP` | `Symfony` | `API Platform` | \
-  | `Hydra` | `JSON-LD` | `OpenAPI` | \
-  | `Doctrine` | `PostgreSQL` | `PostGIS` | \
-  | `Redis` | `Varnish` | \
-  | `Docker` | `Docker Compose` | `GitLab CI` |
+  - Designed and built backend web API for travel e-commerce platform startup.
+    Maintained database of travel destinations and POIs, queryable by geometry.
+    Implemented tagging of travel destinations and POIs in tour and activity
+    itineraries. Implemented full-text search for tour and activity products.
+  - Contributed to API Platform development, and thereafter made a Core Team
+    member.
 ]
 
 == Company27
 
-#job-title[Font-end Developer]
+#experience[
+  #job-title[Front-end Developer]
 
-#time-period[(September 2014--December 2014)]
-
-- Developed new web project for The Battery Shop.
-- Developed new web project for Lacelle Malaysia.
+  #timeframe[(September 2014--December 2014)]
+]
 
 == Corpick
 
-#job-title[Software Engineer]
+#experience[
+  #job-title[Software Engineer]
 
-#time-period[(April 2013--August 2014)]
+  #timeframe[(April 2013--August 2014)]
 
-- Designed and built web-based system for home and gifts e-commerce store
-  startup.
-
-#tech[
-  | `PHP` | `Symfony` | \
-  | `Doctrine` | `MySQL` | \
-  | `Redis` |
+  - Designed and built web-based system for home and gifts e-commerce store
+    startup.
 ]
 
 == SeedNet Technologies
 
-#job-title[Software Development Engineer]
+#experience[
+  #job-title[Software Development Engineer]
 
-#time-period[(March 2013)]
+  #timeframe[(March 2013)]
 
-- Developed and integrated stored procedures for web-based plant operations
-  system for Petronas Chemicals.
+  - Developed and integrated stored procedures for web-based plant operations
+    system for Petronas Chemicals.
+]
 
 = Education
 
 == Bachelor of Computer Science
 
-#institution[RMIT University, Australia]
+#education[
+  #institution[RMIT University, Australia]
 
-#time-period[(2012)]
+  #timeframe[(2012)]
+]
 
 == Diploma in Information Technology
 
-#institution[INTI International College Penang, Malaysia]
+#education[
+  #institution[INTI International College Penang, Malaysia]
 
-#time-period[(2010)]
+  #timeframe[(2010)]
+]
