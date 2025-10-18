@@ -39,8 +39,13 @@
   let text-size = 0.9em
   let separator-fill = palette.sapphire.rgb
   set text(size: text-size)
-  show "|": set text(fill: separator-fill)
-  content
+  set par.line(
+    numbering: _ => text(size: text-size, fill: separator-fill)[|],
+    number-clearance: -0.6 * text-size,
+  )
+  set list(marker: text(fill: separator-fill)[|])
+  show list.item: it => box[#it.body #list.marker]
+  block(inset: (left: 1.2em))[#content]
 }
 #let project(content) = box(content)
 #let timeframe(content) = {
@@ -73,6 +78,8 @@
   content
 }
 
+#set document(title: "CV")
+
 = Summary
 
 I am a software developer with more than 10 years of experience, with a focus on
@@ -85,9 +92,27 @@ projects.
 = Skills
 
 #skills[
-  | Rust | Tokio | axum | Diesel | PostgreSQL | PostGIS | Redis | Varnish | \
-  | OpenID Connect | OpenAPI | JSON-LD | Hydra | Automerge | CRDT | FRP | \
-  | Docker | Docker Compose | GitHub Actions | GitLab CI | \
+  - Rust
+  - Tokio
+  - axum
+  - Diesel
+  - PostgreSQL
+  - PostGIS
+  - Redis
+  - Varnish
+  - OpenID Connect
+  - OpenAPI
+  - JSON-LD
+  - Hydra
+  - Automerge
+  - CRDT
+  - FRP
+  - Docker
+  - Docker Compose
+  - GitHub Actions
+  - GitLab CI
+  - Bash
+  - Linux
 ]
 
 = Projects
