@@ -117,10 +117,18 @@ projects.
 
 = Projects
 
+== #link("https://codeberg.org/teohhanhui/tapir2p")[tapir2p]
+
+#project[
+  #timeframe[(May 2026--Present)]
+
+  #wip[[WIP]] A peer-to-peer ActivityPub experiment.
+]
+
 == #link("https://github.com/teohhanhui/cyclers")[cyclers]
 
 #project[
-  #timeframe[(July 2025--Present)]
+  #timeframe[(July 2025--November 2025)]
 
   #wip[[WIP]] A functional and reactive framework. Inspired by #link(
     "https://cycle.js.org/",
@@ -162,7 +170,7 @@ projects.
 #experience[
   #job-title[Software Engineer (Contractor)]
 
-  #timeframe[(November 2024--Present)]
+  #timeframe[(November 2024--June 2026)]
 
   - Revamped and hardened authentication system. Integrated #link(
       "https://openid.net/specs/openid-connect-core-1_0.html",
